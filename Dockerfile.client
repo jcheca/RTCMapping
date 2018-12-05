@@ -1,0 +1,14 @@
+FROM node:7
+
+WORKDIR /app
+
+COPY rtcm-client/package.json /app
+RUN npm install
+
+COPY rtcm-client /app
+COPY start.sh /app
+RUN npm run build
+
+CMD /app/start.sh
+
+EXPOSE 9000

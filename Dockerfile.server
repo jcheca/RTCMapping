@@ -1,0 +1,10 @@
+FROM node:7
+
+WORKDIR /app
+COPY rtcm-server/package.json /app
+RUN npm install
+
+COPY rtcm-server /app
+
+CMD node /app/src/index.js
+EXPOSE 2000

@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  rtcm-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    image: rtcm-server
+    hostname: ucoiot-rtcmsrv
+    container_name: ucoiot-rtcmsrv
+    expose:
+      - "2000"
+    ports:
+      - "2000:2000"
+
+  rtcm-client:
+    build: 
+      context: .
+      dockerfile: Dockerfile.client
+    image: rtcm-client
+    hostname: ucoiot-rtcmclt
+    container_name: ucoiot-rtcmclt
+    depends_on:
+      - rtcm-server
+    expose:
+        - "9000"
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./webpack.docker.js:/app/webpack.config.js
+      - ./RealTimeEngine.docker.js:/app/src/org/geowe/rtcmapping/RealTimeEngine.js
